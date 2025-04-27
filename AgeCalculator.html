@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input {
+      margin: 8px;
+      padding: 10px;
+      width: 80px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Age Calculator</h2>
+    <div>
+      <input type="number" id="day" placeholder="Day" min="1" max="31">
+      <input type="number" id="month" placeholder="Month" min="1" max="12">
+      <input type="number" id="year" placeholder="Year" min="1900" max="2100">
+    </div>
+    <button onclick="calculateAge()">Calculate Age</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateAge() {
+      let day = document.getElementById("day").value;
+      let month = document.getElementById("month").value;
+      let year = document.getElementById("year").value;
+
+      if (day === "" || month === "" || year === "") {
+        document.getElementById("result").innerHTML = "Please fill all fields!";
+        return;
+      }
+
+      let today = new Date();
+      let birthDate = new Date(year, month -1, day);
+
+      let ageyear= today.getFullYear() - birthDate.getFullYear();
+      let agemonth= today.getMonth() - birthDate.getMonth();
+      let agedate= today.getDate() - birthDate.getDate();
+
+      let Days = " Days";
+
+      if(agedate == 1)
+      {
+        Days = " Day ";
+      }
+
+      let m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          ageyear--;
+        agemonth += 12;
+
+      }
+
+      if (ageyear < 0) {
+        document.getElementById("result").innerHTML = "Invalid birth date!";
+      } else {
+        document.getElementById("result").innerHTML = "Your Age is: " + ageyear + " years " + agemonth + " Month's " + agedate + Days;
+      }
+    }
+  </script>
+
+</body>
+</html>
